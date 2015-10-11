@@ -16,6 +16,8 @@
 
 ## Overview
 
+This module is a refactored version of https://github.com/spacepants/puppet-hyperic. The change of namespace meant I changed it to a new module and added it to the forge.
+
 Puppet module for installing, configuring, and managing [VMWare's Hyperic OS & application monitoring agent](http://www.vmware.com/products/vrealize-hyperic) from the [official VMWare repository](http://repo.vmware.com/pub/).
 
 ## Module Description
