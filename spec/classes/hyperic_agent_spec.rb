@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'hyperic' do
+describe 'hyperic_agent' do
   context 'on supported operating systems' do
     context 'without any parameters' do
       let(:params) {{ }}
@@ -10,11 +10,13 @@ describe 'hyperic' do
       }}
       it { should compile.with_all_deps }
 
-      it { should contain_class('hyperic::params') }
-      it { should contain_class('hyperic::repo').that_comes_before('hyperic::install') }
-      it { should contain_class('hyperic::install').that_comes_before('hyperic::config') }
-      it { should contain_class('hyperic::config') }
-      it { should contain_class('hyperic::service').that_subscribes_to('hyperic::config') }
+      it { should create_class('hyperic_agent') }
+
+      it { should contain_class('hyperic_agent::params') }
+      it { should contain_class('hyperic_agent::repo').that_comes_before('hyperic_agent::install') }
+      it { should contain_class('hyperic_agent::install').that_comes_before('hyperic_agent::config') }
+      it { should contain_class('hyperic_agent::config') }
+      it { should contain_class('hyperic_agent::service').that_subscribes_to('hyperic_agent::config') }
 
       it { should contain_group('vfabric').with(
         :ensure => 'present',
@@ -54,7 +56,7 @@ describe 'hyperic' do
 
           it { should contain_file("/etc/pki/rpm-gpg/RPM-GPG-KEY-VFABRIC-5.3-EL#{facts[:operatingsystemmajrelease]}") }
 
-          it { should contain_hyperic__rpm_gpg_key("VFABRIC-5.3-EL#{facts[:operatingsystemmajrelease]}").with_path("/etc/pki/rpm-gpg/RPM-GPG-KEY-VFABRIC-5.3-EL#{facts[:operatingsystemmajrelease]}") }
+          it { should contain_hyperic_agent__rpm_gpg_key("VFABRIC-5.3-EL#{facts[:operatingsystemmajrelease]}").with_gpg_path("/etc/pki/rpm-gpg/RPM-GPG-KEY-VFABRIC-5.3-EL#{facts[:operatingsystemmajrelease]}") }
 
           it { should contain_yumrepo('vfabric').with(
             :descr    => 'VMWare vFabric 5.3 - $basearch',
@@ -159,7 +161,7 @@ describe 'hyperic' do
                 let(:params) {{ 'vfabric_version' => vfabric_version }}
                 it { should contain_file("/etc/pki/rpm-gpg/RPM-GPG-KEY-VFABRIC-#{params['vfabric_version']}-EL#{facts[:operatingsystemmajrelease]}") }
 
-                it { should contain_hyperic__rpm_gpg_key("VFABRIC-#{params['vfabric_version']}-EL#{facts[:operatingsystemmajrelease]}").with_path("/etc/pki/rpm-gpg/RPM-GPG-KEY-VFABRIC-#{params['vfabric_version']}-EL#{facts[:operatingsystemmajrelease]}") }
+                it { should contain_hyperic_agent__rpm_gpg_key("VFABRIC-#{params['vfabric_version']}-EL#{facts[:operatingsystemmajrelease]}").with_gpg_path("/etc/pki/rpm-gpg/RPM-GPG-KEY-VFABRIC-#{params['vfabric_version']}-EL#{facts[:operatingsystemmajrelease]}") }
 
                 it { should contain_yumrepo('vfabric').with(
                   :descr    => "VMWare vFabric #{params['vfabric_version']} - $basearch",
@@ -180,7 +182,7 @@ describe 'hyperic' do
           let(:params) {{ 'vfabric_version' => '5' }}
           it { should contain_file("/etc/pki/rpm-gpg/RPM-GPG-KEY-VFABRIC-#{params['vfabric_version']}") }
 
-          it { should contain_hyperic__rpm_gpg_key("VFABRIC-#{params['vfabric_version']}").with_path("/etc/pki/rpm-gpg/RPM-GPG-KEY-VFABRIC-#{params['vfabric_version']}") }
+          it { should contain_hyperic_agent__rpm_gpg_key("VFABRIC-#{params['vfabric_version']}").with_gpg_path("/etc/pki/rpm-gpg/RPM-GPG-KEY-VFABRIC-#{params['vfabric_version']}") }
 
           it { should contain_yumrepo('vfabric').with(
             :descr    => "VMWare vFabric #{params['vfabric_version']} - $basearch",

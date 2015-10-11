@@ -1,25 +1,19 @@
-# == Define hyperic::rpm_gpg_key
+# hyperic_agent::rpm_gpg_key - This define is a repurposed version of stahma's epel beauty and imports the RPM GPG keys for vFabric
 #
-# This define is a repurposed version of stahma's epel beauty and imports the RPM GPG keys for vFabric
+# @example
+#   hyperic_agent::rpm_gpg_key{
+#     gpg_path => "/etc/pki/rpm-gpg/RPM-GPG-KEY-VFABRIC-5.3-EL6"
+#   }
 #
-# === Parameters
+# @param gpg_path [String] Path of the RPM GPG key to import
 #
-# [*path*]
-#   Path of the RPM GPG key to import
-#
-# === Sample usage
-#
-# hyperic::rpm_gpg_key{
-#   path => "/etc/pki/rpm-gpg/RPM-GPG-KEY-VFABRIC-5.3-EL6"
-# }
-#
-define hyperic::rpm_gpg_key($path) {
+define hyperic_agent::rpm_gpg_key($gpg_path) {
   # Given the path to a key, see if it is imported, and if not, import it
   exec {  "import-${name}":
     path      => '/bin:/usr/bin:/sbin:/usr/sbin',
-    command   => "rpm --import ${path}",
-    unless    => "rpm -q gpg-pubkey-$(echo $(gpg --throw-keyids < ${path}) | cut --characters=11-18 | tr '[A-Z]' '[a-z]')",
-    require   => File[$path],
+    command   => "rpm --import ${gpg_path}",
+    unless    => "rpm -q gpg-pubkey-$(echo $(gpg --throw-keyids < ${gpg_path}) | cut --characters=11-18 | tr '[A-Z]' '[a-z]')",
+    require   => File[$gpg_path],
     logoutput => on_failure,
   }
 }

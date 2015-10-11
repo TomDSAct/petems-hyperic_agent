@@ -1,9 +1,5 @@
-# == Class hyperic::params
-#
-# This class is meant to be called from hyperic
-# It sets variables according to platform
-#
-class hyperic::params {
+# hyperic_agent::params - Default parameters
+class hyperic_agent::params {
   case $::osfamily {
     'RedHat': {
       $agent_group     = 'vfabric'
@@ -12,6 +8,7 @@ class hyperic::params {
       $enable_repo     = true
       $java_home       = '/etc/alternatives/jre'
       $manage_repo     = true
+      $manage_package  = true
       $package_name    = 'vfabric-hyperic-agent'
       $repo_path       = 'http://repo.vmware.com/pub/'
       $server_ip       = 'localhost'

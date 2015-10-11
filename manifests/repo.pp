@@ -1,74 +1,72 @@
-# == Class hyperic::repo
+# hyperic_agent::repo - Used for managing repos for hyperic (just yum for now)
 #
-# This class is called from hyperic
-#
-class hyperic::repo {
-  if $::hyperic::manage_repo {
+class hyperic_agent::repo {
+  if $::hyperic_agent::manage_repo {
     file { '/etc/yum.repos.d/vfabric.repo':
       ensure => file,
       owner  => 'root',
       group  => 'root',
       mode   => '0644',
     }
-    case $::hyperic::vfabric_version {
+    case $::hyperic_agent::vfabric_version {
       '5': {
-        file { "/etc/pki/rpm-gpg/RPM-GPG-KEY-VFABRIC-${::hyperic::vfabric_version}":
+        file { "/etc/pki/rpm-gpg/RPM-GPG-KEY-VFABRIC-${::hyperic_agent::vfabric_version}":
           ensure => file,
           owner  => 'root',
           group  => 'root',
           mode   => '0644',
-          source => "puppet:///modules/hyperic/RPM-GPG-KEY-VFABRIC-${::hyperic::vfabric_version}"
+          source => "puppet:///modules/hyperic_agent/RPM-GPG-KEY-VFABRIC-${::hyperic_agent::vfabric_version}"
         }
-        if $::hyperic::enable_repo {
+        if $::hyperic_agent::enable_repo {
           yumrepo { 'vfabric':
-            descr    => "VMWare vFabric ${::hyperic::vfabric_version} - \$basearch",
+            descr    => "VMWare vFabric ${::hyperic_agent::vfabric_version} - \$basearch",
             enabled  => '1',
             gpgcheck => '1',
-            gpgkey   => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-VFABRIC-${::hyperic::vfabric_version}",
-            baseurl  => "${::hyperic::repo_path}rhel${::operatingsystemmajrelease}/vfabric/${::hyperic::vfabric_version}/\$basearch"
+            gpgkey   => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-VFABRIC-${::hyperic_agent::vfabric_version}",
+            baseurl  => "${::hyperic_agent::repo_path}rhel${::operatingsystemmajrelease}/vfabric/${::hyperic_agent::vfabric_version}/\$basearch"
           }
         } else {
           yumrepo { 'vfabric':
-            descr    => "VMWare vFabric ${::hyperic::vfabric_version} - \$basearch",
+            descr    => "VMWare vFabric ${::hyperic_agent::vfabric_version} - \$basearch",
             enabled  => '0',
             gpgcheck => '1',
-            gpgkey   => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-VFABRIC-${::hyperic::vfabric_version}",
-            baseurl  => "${::hyperic::repo_path}rhel${::operatingsystemmajrelease}/vfabric/${::hyperic::vfabric_version}/\$basearch"
+            gpgkey   => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-VFABRIC-${::hyperic_agent::vfabric_version}",
+            baseurl  => "${::hyperic_agent::repo_path}rhel${::operatingsystemmajrelease}/vfabric/${::hyperic_agent::vfabric_version}/\$basearch"
           }
         }
-        hyperic::rpm_gpg_key{ "VFABRIC-${::hyperic::vfabric_version}":
-          path   => "/etc/pki/rpm-gpg/RPM-GPG-KEY-VFABRIC-${::hyperic::vfabric_version}",
-          before => Yumrepo['vfabric'],
+        hyperic_agent::rpm_gpg_key{ "VFABRIC-${::hyperic_agent::vfabric_version}":
+          gpg_path      => "/etc/pki/rpm-gpg/RPM-GPG-KEY-VFABRIC-${::hyperic_agent::vfabric_version}",
+          before        => Yumrepo['vfabric'],
         }
       }
       default: {
-        file { "/etc/pki/rpm-gpg/RPM-GPG-KEY-VFABRIC-${::hyperic::vfabric_version}-EL${::operatingsystemmajrelease}":
+        file { "/etc/pki/rpm-gpg/RPM-GPG-KEY-VFABRIC-${::hyperic_agent::vfabric_version}-EL${::operatingsystemmajrelease}":
           ensure => file,
           owner  => 'root',
           group  => 'root',
           mode   => '0644',
-          source => "puppet:///modules/hyperic/RPM-GPG-KEY-VFABRIC-${::hyperic::vfabric_version}-EL${::operatingsystemmajrelease}"
+          source => "puppet:///modules/hyperic_agent/RPM-GPG-KEY-VFABRIC-${::hyperic_agent::vfabric_version}-EL${::operatingsystemmajrelease}"
         }
-        if $::hyperic::enable_repo {
+        if $::hyperic_agent::enable_repo {
           yumrepo { 'vfabric':
-            descr    => "VMWare vFabric ${::hyperic::vfabric_version} - \$basearch",
+            descr    => "VMWare vFabric ${::hyperic_agent::vfabric_version} - \$basearch",
             enabled  => '1',
             gpgcheck => '1',
-            gpgkey   => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-VFABRIC-${::hyperic::vfabric_version}-EL${::operatingsystemmajrelease}",
-            baseurl  => "${::hyperic::repo_path}rhel${::operatingsystemmajrelease}/vfabric/${::hyperic::vfabric_version}/\$basearch"
+            gpgkey   => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-VFABRIC-${::hyperic_agent::vfabric_version}-EL${::operatingsystemmajrelease}",
+            baseurl  => "${::hyperic_agent::repo_path}rhel${::operatingsystemmajrelease}/vfabric/${::hyperic_agent::vfabric_version}/\$basearch"
           }
         } else {
           yumrepo { 'vfabric':
-            descr    => "VMWare vFabric ${::hyperic::vfabric_version} - \$basearch",
+            descr    => "VMWare vFabric ${::hyperic_agent::vfabric_version} - \$basearch",
             enabled  => '0',
             gpgcheck => '1',
-            gpgkey   => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-VFABRIC-${::hyperic::vfabric_version}-EL${::operatingsystemmajrelease}",
-            baseurl  => "${::hyperic::repo_path}rhel${::operatingsystemmajrelease}/vfabric/${::hyperic::vfabric_version}/\$basearch"
+            gpgkey   => "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-VFABRIC-${::hyperic_agent::vfabric_version}-EL${::operatingsystemmajrelease}",
+            baseurl  => "${::hyperic_agent::repo_path}rhel${::operatingsystemmajrelease}/vfabric/${::hyperic_agent::vfabric_version}/\$basearch"
           }
         }
-        hyperic::rpm_gpg_key{ "VFABRIC-${::hyperic::vfabric_version}-EL${::operatingsystemmajrelease}":
-          path   => "/etc/pki/rpm-gpg/RPM-GPG-KEY-VFABRIC-${::hyperic::vfabric_version}-EL${::operatingsystemmajrelease}",
-          before => Yumrepo['vfabric'],
+        hyperic_agent::rpm_gpg_key{ "VFABRIC-${::hyperic_agent::vfabric_version}-EL${::operatingsystemmajrelease}":
+          gpg_path   => "/etc/pki/rpm-gpg/RPM-GPG-KEY-VFABRIC-${::hyperic_agent::vfabric_version}-EL${::operatingsystemmajrelease}",
+          before     => Yumrepo['vfabric'],
         }
       }
     }

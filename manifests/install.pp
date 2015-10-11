@@ -1,11 +1,11 @@
-# == Class hyperic::install
+# hyperic_agent::install - Used for managing config files for a hyperic agents
 #
-class hyperic::install {
-  group { $::hyperic::agent_group:
+class hyperic_agent::install {
+  group { $::hyperic_agent::agent_group:
     ensure => present,
     system => true,
   }
-  user { $::hyperic::agent_user:
+  user { $::hyperic_agent::agent_user:
     ensure  => present,
     system  => true,
     home    => '/opt/hyperic',
@@ -13,15 +13,17 @@ class hyperic::install {
     gid     => 'vfabric',
     require => Group['vfabric']
   }
-  if $::hyperic::enable_repo {
-    package { $::hyperic::package_name:
-      ensure   => $::hyperic::agent_version,
-      provider => yum,
-      require  => Yumrepo['vfabric']
-    }
-  } else {
-    package { $::hyperic::package_name:
-      ensure   => present
+  if $::hyperic_agent::manage_package {
+    if $::hyperic_agent::enable_repo {
+      package { $::hyperic_agent::package_name:
+        ensure   => $::hyperic_agent::agent_version,
+        provider => yum,
+        require  => Yumrepo['vfabric']
+      }
+    } else {
+      package { $::hyperic_agent::package_name:
+        ensure   => present
+      }
     }
   }
 }

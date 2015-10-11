@@ -1,13 +1,13 @@
 {
-  "name": "spacepants-hyperic",
-  "version": "0.1.1",
-  "author": "Paul Bailey",
+  "name": "petems-hyperic_agent",
+  "version": "0.2.0",
+  "author": "Peter Souter",
   "summary": "Module for installing and managing VMWare vFabric Hyperic agent",
   "license": "Apache 2.0",
-  "source": "git://github.com/spacepants/puppet-hyperic",
-  "project_page": "https://github.com/spacepants/puppet-hyperic",
-  "issues_url": "https://github.com/spacepants/puppet-hyperic/issues",
-  "tags": ["vmware", "vfabric", "vcenter", "hyperic"],
+  "source": "git://github.com/petems/petems-hyperic_agent",
+  "project_page": "https://github.com/petems/petems-hyperic_agent",
+  "issues_url": "https://github.com/petems/petems-hyperic_agent/issues",
+  "tags": ["vmware", "vfabric", "vcenter", "hyperic", "hyperic_agent"],
   "operatingsystem_support": [
     {
       "operatingsystem": "RedHat",
@@ -29,7 +29,7 @@
       "version_requirement": "3.x"
     },{
       "name": "puppet",
-      "version_requirement": ">=2.7.20 <4.0.0"
+      "version_requirement": ">=2.7.20"
     }
   ],
   "dependencies": [

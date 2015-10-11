@@ -5,3 +5,10 @@ spec/fixtures
 .vagrant
 .bundle
 vendor
+.idea
+.project
+.DS_Store
+doc/*
+.yardoc/*
+.gitignore
+Gemfile.lock

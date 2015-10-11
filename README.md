@@ -1,5 +1,5 @@
 # Hyperic Puppet Module
-[![Build Status](https://secure.travis-ci.org/spacepants/puppet-hyperic.svg)](https://travis-ci.org/spacepants/puppet-hyperic)
+[![Build Status](https://secure.travis-ci.org/petems/petems-hyperic_agent.svg)](https://travis-ci.org/petems/petems-hyperic_agent)
 
 #### Table of Contents
 
@@ -54,12 +54,12 @@ which will encrypt the appropriate values in agent.properties and agent.scu. Or 
 
 This module includes a single class:
 ```puppet
-include 'hyperic'
+include 'hyperic_agent'
 ```
 
 You'll more than likely want to provide the appropriate values for your server including, as mentioned above, the encrypted password and key which you can do like so:
 ```puppet
-class { 'hyperic':
+class { 'hyperic_agent':
   server_ip      => '1.2.3.4',
   server_login   => 'hq-username',
   server_enc_pw  => 'encrypted-password-here',
@@ -69,14 +69,14 @@ class { 'hyperic':
 
 You'll probably also want to specify your $JAVA_HOME path, which you can do like so:
 ```puppet
-class { 'hyperic':
+class { 'hyperic_agent':
   java_home => '/your/path/to/jre'
 }
 ```
 
 You can specify which versions of vFabric or the Hyperic agent to install like so:
 ```puppet
-  class { 'hyperic':
+  class { 'hyperic_agent':
   agent_version   => '4.6.6.1.EE-1',
   vfabric_version => '5.1',
 }
@@ -84,28 +84,28 @@ You can specify which versions of vFabric or the Hyperic agent to install like s
 
 You can specify a local mirror or alternative source of the repo like so:
 ```puppet
-  class { 'hyperic':
+  class { 'hyperic_agent':
   repo_path => 'http://path.to.your.local/repo/',
 }
 ```
 
 To disable the repo once the agent's been installed, you can specify it like so: _(Note that this will also change the package ensure parameter from 'latest' to 'present'.)_
 ```puppet
-  class { 'hyperic':
+  class { 'hyperic_agent':
   enable_repo => false,
 }
 ```
 
 To opt out of repo management altogether, you'd specify it like so:
 ```puppet
-  class { 'hyperic':
+  class { 'hyperic_agent':
   manage_repo => false,
 }
 ```
 
 If your Hyperic setup is a beautiful, unique snowflake, you can customize pretty much any parameter in agent.properties you need to like so:
 ```puppet
-class { 'hyperic':
+class { 'hyperic_agent':
   server_ip       => '1.2.3.4',
   server_port     => '1234',
   server_secure   => 'no',

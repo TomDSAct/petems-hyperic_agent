@@ -1,17 +1,14 @@
-# == Class hyperic::service
+# hyperic_agent::repo - Used for managing the service for hyperic
 #
-# This class is meant to be called from hyperic
-# It ensure the service is running
-#
-class hyperic::service {
-  file { "/etc/init.d/${::hyperic::service_name}":
+class hyperic_agent::service {
+  file { "/etc/init.d/${::hyperic_agent::service_name}":
     ensure  => file,
     owner   => 'root',
     group   => 'root',
     mode    => '0755',
-    content => template('hyperic/hyperic.init.erb')
+    content => template('hyperic_agent/hyperic.init.erb')
   }
-  service { $::hyperic::service_name:
+  service { $::hyperic_agent::service_name:
     ensure     => running,
     enable     => true,
     hasstatus  => true,

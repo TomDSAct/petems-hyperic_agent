@@ -1,20 +1,18 @@
-# == Class hyperic::config
+# hyperic_agent::config - Used for managing config files for a hyperic agents
 #
-# This class is called from hyperic
-#
-class hyperic::config {
+class hyperic_agent::config {
   file { '/opt/hyperic/hyperic-hqee-agent/conf/agent.properties':
     ensure  => file,
-    owner   => $::hyperic::agent_user,
-    group   => $::hyperic::agent_group,
+    owner   => $::hyperic_agent::agent_user,
+    group   => $::hyperic_agent::agent_group,
     mode    => '0644',
-    content => template('hyperic/agent.properties.erb')
+    content => template('hyperic_agent/agent.properties.erb')
   }
   file { '/opt/hyperic/hyperic-hqee-agent/conf/agent.scu':
     ensure  => file,
-    owner   => $::hyperic::agent_user,
-    group   => $::hyperic::agent_group,
+    owner   => $::hyperic_agent::agent_user,
+    group   => $::hyperic_agent::agent_group,
     mode    => '0600',
-    content => template('hyperic/agent.scu.erb')
+    content => template('hyperic_agent/agent.scu.erb')
   }
 }

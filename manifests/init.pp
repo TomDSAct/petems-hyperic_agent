@@ -1,105 +1,85 @@
-# == Class: hyperic
+# hyperic_agent - Used for managing installation and configuration
+# of a Hyperic agent
 #
-# Module to install an up-to-date version of Hyperic from VMWare repo.
+# @example
+#   include hyperic_agent
 #
-# === Parameters
+# @example
+#   class { 'hyperic_agent':
+#     server_ip      => '1.2.3.4',
+#     server_login   => 'hq-username',
+#     server_enc_pw  => 'encrypted-password-here',
+#     server_enc_key => 'your-encrypted-key-here',
+#   }
 #
-# [*agent_group*]
-#   Group the hyperic agent should run as
-#   Defaults to vfabric
+# @author Peter Souter, Paul Bailey, and various Github contributors
 #
-# [*agent_version*]
-#   Version of the hyperic agent to install
-#   Defaults to latest
+# @param agent_group [String] Group the hyperic agent should run as
 #
-# [*agent_user*]
-#   User the hyperic agent should run as
-#   Defaults to hyperic
+# @param agent_version [String]  Version of the hyperic agent to install
 #
-# [*enable_repo*]
-#   Enable the VMWare vFabric repo
-#   Defaults to true
+# @param agent_user [String] User the hyperic agent should run as
 #
-# [*java_home*]
-#   Path to $JAVA_HOME that Hyperic should use
-#   Defaults to /usr/lib/jvm/jre
+# @param enable_repo [Boolean] Enable the VMWare vFabric repo
 #
-# [*manage_repo*]
-#   Enable repo management
-#   Defaults to true
+# @param java_home [String] Path to $JAVA_HOME that Hyperic should use
 #
-# [*package_name*]
-#   Name of the package to install
-#   Defaults to vfabric-hyperic-agent
+# @param manage_repo [Boolean] Enable repo management
 #
-# [*repo_path*]
-#   Path to the VMWare vFabric repo
-#   Defaults to http://repo.vmware.com/pub/
+# @param manage_package [Boolean] Enable repo management
 #
-# [*server_ip*]
-#   IP address of the Hyperic server
-#   Defaults to localhost
+# @param package_name [String] Name of the package to install
 #
-# [*server_port*]
-#   Non-SSl port of the Hyperic server
-#   Defaults to 7080
+# @param repo_path [String] Path to the VMWare vFabric repo
 #
-# [*server_ssl_port*]
-#   SSl port of the Hyperic server
-#   Defaults to 7443
+# @param server_ip [String] IP address of the Hyperic server
 #
-# [*server_secure*]
-#   Should the agent use SSL
-#   Defaults to yes
+# @param server_port [String] Non-SSl port of the Hyperic server
 #
-# [*server_login*]
-#   Login username of the Hyperic agent
-#   Defaults to hqadmin
+# @param server_ssl_port [String] SSl port of the Hyperic server
 #
-# [*server_enc_pw*]
-#   Encrypted password of the Hyperic agent
-#   Defaults to sObldeOAPhM/B2s1HN610w== (which is just hqadmin encrypted)
+# @param server_secure [String] Should the agent use SSL
 #
-# [*server_enc_key*]
-#   Encryption key of the Hyperic agent
-#   Defaults to vhpNo3TaTQ4jJ0MslmIgcaPD3TA5urZouiBVBCUJ5rjBXLGHLEjtOI/yz/hPCQO/GYy9CBg9eMoWOmWcmg6c4Q\=\=
+# @param server_login [String] Login username of the Hyperic agent
 #
-# [*service_name*]
-#   Name of the service to use
-#   Defaults to hyperic-hqee-agent
+# @param server_enc_pw [String] Encrypted password of the Hyperic agent
 #
-# [*vfabric_version*]
-#   vFabric version to use
-#   Defaults to 5.3
+# @param server_enc_key [String] Encryption key of the Hyperic agent
 #
-class hyperic (
-  $agent_group     = $::hyperic::params::agent_group,
-  $agent_version   = $::hyperic::params::agent_version,
-  $agent_user      = $::hyperic::params::agent_user,
-  $enable_repo     = $::hyperic::params::enable_repo,
-  $java_home       = $::hyperic::params::java_home,
-  $manage_repo     = $::hyperic::params::manage_repo,
-  $package_name    = $::hyperic::params::package_name,
-  $repo_path       = $::hyperic::params::repo_path,
-  $server_ip       = $::hyperic::params::server_ip,
-  $server_port     = $::hyperic::params::server_port,
-  $server_ssl_port = $::hyperic::params::server_ssl_port,
-  $server_secure   = $::hyperic::params::server_secure,
-  $server_login    = $::hyperic::params::server_login,
-  $server_enc_pw   = $::hyperic::params::server_enc_pw,
-  $server_enc_key  = $::hyperic::params::server_enc_key,
-  $service_name    = $::hyperic::params::service_name,
-  $vfabric_version = $::hyperic::params::vfabric_version,
-) inherits ::hyperic::params {
+# @param service_name [String] Name of the service to use
+#
+# @param vfabric_version [String] vFabric version to use
+#
+class hyperic_agent (
+  $agent_group     = $::hyperic_agent::params::agent_group,
+  $agent_version   = $::hyperic_agent::params::agent_version,
+  $agent_user      = $::hyperic_agent::params::agent_user,
+  $enable_repo     = $::hyperic_agent::params::enable_repo,
+  $java_home       = $::hyperic_agent::params::java_home,
+  $manage_package  = $::hyperic_agent::params::manage_package,
+  $manage_repo     = $::hyperic_agent::params::manage_repo,
+  $package_name    = $::hyperic_agent::params::package_name,
+  $repo_path       = $::hyperic_agent::params::repo_path,
+  $server_ip       = $::hyperic_agent::params::server_ip,
+  $server_port     = $::hyperic_agent::params::server_port,
+  $server_ssl_port = $::hyperic_agent::params::server_ssl_port,
+  $server_secure   = $::hyperic_agent::params::server_secure,
+  $server_login    = $::hyperic_agent::params::server_login,
+  $server_enc_pw   = $::hyperic_agent::params::server_enc_pw,
+  $server_enc_key  = $::hyperic_agent::params::server_enc_key,
+  $service_name    = $::hyperic_agent::params::service_name,
+  $vfabric_version = $::hyperic_agent::params::vfabric_version,
+) inherits ::hyperic_agent::params {
 
   validate_bool($enable_repo)
   validate_bool($manage_repo)
+  validate_bool($manage_package)
   validate_string($agent_version)
   validate_string($vfabric_version)
 
-  class { '::hyperic::repo': } ->
-  class { '::hyperic::install': } ->
-  class { '::hyperic::config': } ~>
-  class { '::hyperic::service': } ->
-  Class['::hyperic']
+  class { '::hyperic_agent::repo': } ->
+  class { '::hyperic_agent::install': } ->
+  class { '::hyperic_agent::config': } ~>
+  class { '::hyperic_agent::service': } ->
+  Class['::hyperic_agent']
 }
