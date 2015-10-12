@@ -35,8 +35,8 @@ class hyperic_agent::repo {
           }
         }
         hyperic_agent::rpm_gpg_key{ "VFABRIC-${::hyperic_agent::vfabric_version}":
-          gpg_path      => "/etc/pki/rpm-gpg/RPM-GPG-KEY-VFABRIC-${::hyperic_agent::vfabric_version}",
-          before        => Yumrepo['vfabric'],
+          gpg_path => "/etc/pki/rpm-gpg/RPM-GPG-KEY-VFABRIC-${::hyperic_agent::vfabric_version}",
+          before   => Yumrepo['vfabric'],
         }
       }
       default: {
@@ -65,8 +65,8 @@ class hyperic_agent::repo {
           }
         }
         hyperic_agent::rpm_gpg_key{ "VFABRIC-${::hyperic_agent::vfabric_version}-EL${::operatingsystemmajrelease}":
-          gpg_path   => "/etc/pki/rpm-gpg/RPM-GPG-KEY-VFABRIC-${::hyperic_agent::vfabric_version}-EL${::operatingsystemmajrelease}",
-          before     => Yumrepo['vfabric'],
+          gpg_path => "/etc/pki/rpm-gpg/RPM-GPG-KEY-VFABRIC-${::hyperic_agent::vfabric_version}-EL${::operatingsystemmajrelease}",
+          before   => Yumrepo['vfabric'],
         }
       }
     }
