@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "author": "Peter Souter",
   "summary": "Module for installing and managing VMWare vFabric Hyperic agent",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
   "source": "git://github.com/petems/petems-hyperic_agent",
   "project_page": "https://github.com/petems/petems-hyperic_agent",
   "issues_url": "https://github.com/petems/petems-hyperic_agent/issues",
