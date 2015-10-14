@@ -13,7 +13,7 @@ describe 'hyperic class' do
       apply_manifest(java, :catch_failures => true)
 
       pp = <<-EOS
-      class { 'hyperic': }
+      class { 'hyperic_agent': }
       EOS
 
       # Run it twice and test for idempotency
