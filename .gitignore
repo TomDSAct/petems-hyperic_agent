@@ -12,3 +12,4 @@ doc/*
 .yardoc/*
 .gitignore
 Gemfile.lock
+log/
