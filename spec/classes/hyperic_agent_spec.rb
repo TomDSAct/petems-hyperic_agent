@@ -137,13 +137,6 @@ describe 'hyperic_agent' do
         it { should contain_file("/etc/init.d/#{params['service_name']}").with_content(/# Short-Description: custom-service init/) }
       end
       context 'repo disabled' do
-        let(:params) {{ 'enable_repo' => false }}
-        it { should contain_yumrepo('vfabric').with(
-          :enabled  => '0'
-        )}
-        it { should contain_package('vfabric-hyperic-agent').with_ensure('present') }
-      end
-      context 'repo disabled' do
         let(:params) {{ 'manage_repo' => false }}
         it { should_not contain_yumrepo('vfabric') }
         it { should_not contain_file('/etc/yum.repos.d/vfabric.repo') }

@@ -14,7 +14,7 @@ class hyperic_agent::install {
     require => Group['vfabric']
   }
   if $::hyperic_agent::manage_package {
-    if $::hyperic_agent::enable_repo {
+    if $::hyperic_agent::manage_repo {
       package { $::hyperic_agent::package_name:
         ensure   => $::hyperic_agent::agent_version,
         provider => yum,

@@ -20,8 +20,6 @@
 #
 # @param agent_user [String] User the hyperic agent should run as
 #
-# @param enable_repo [Boolean] Enable the VMWare vFabric repo
-#
 # @param java_home [String] Path to $JAVA_HOME that Hyperic should use
 #
 # @param manage_repo [Boolean] Enable repo management
@@ -54,7 +52,6 @@ class hyperic_agent (
   $agent_group     = $::hyperic_agent::params::agent_group,
   $agent_version   = $::hyperic_agent::params::agent_version,
   $agent_user      = $::hyperic_agent::params::agent_user,
-  $enable_repo     = $::hyperic_agent::params::enable_repo,
   $java_home       = $::hyperic_agent::params::java_home,
   $manage_package  = $::hyperic_agent::params::manage_package,
   $manage_repo     = $::hyperic_agent::params::manage_repo,
@@ -71,7 +68,6 @@ class hyperic_agent (
   $vfabric_version = $::hyperic_agent::params::vfabric_version,
 ) inherits ::hyperic_agent::params {
 
-  validate_bool($enable_repo)
   validate_bool($manage_repo)
   validate_bool($manage_package)
   validate_string($agent_version)
