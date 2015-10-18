@@ -78,7 +78,7 @@ class { 'hyperic_agent':
 
 You can specify which versions of vFabric or the Hyperic agent to install like so:
 ```puppet
-  class { 'hyperic_agent':
+class { 'hyperic_agent':
   agent_version   => '4.6.6.1.EE-1',
   vfabric_version => '5.1',
 }
@@ -86,21 +86,21 @@ You can specify which versions of vFabric or the Hyperic agent to install like s
 
 You can specify a local mirror or alternative source of the repo like so:
 ```puppet
-  class { 'hyperic_agent':
+class { 'hyperic_agent':
   repo_path => 'http://path.to.your.local/repo/',
 }
 ```
 
 To disable the repo once the agent's been installed, you can specify it like so: _(Note that this will also change the package ensure parameter from 'latest' to 'present'.)_
 ```puppet
-  class { 'hyperic_agent':
+class { 'hyperic_agent':
   enable_repo => false,
 }
 ```
 
 To opt out of repo management altogether, you'd specify it like so:
 ```puppet
-  class { 'hyperic_agent':
+class { 'hyperic_agent':
   manage_repo => false,
 }
 ```
