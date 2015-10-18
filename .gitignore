@@ -13,3 +13,4 @@ doc/*
 .gitignore
 Gemfile.lock
 log/
+junit/
