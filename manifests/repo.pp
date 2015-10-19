@@ -2,6 +2,11 @@
 #
 class hyperic_agent::repo {
   if $::hyperic_agent::manage_repo {
+
+    if $::operatingsystemmajrelease == '7' {
+      fail('There is currently no RHEL7 Repo. Mark $manage_repo parameter as false and host the RPM yourself: https://www.vmware.com/go/download-hyperic')
+    }
+
     file { '/etc/yum.repos.d/vfabric.repo':
       ensure => file,
       owner  => 'root',
