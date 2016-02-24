@@ -13,6 +13,10 @@ describe 'hyperic class' do
       apply_manifest(java, :catch_failures => true)
 
       pp = <<-EOS
+      File {
+       backup => false,
+      }
+
       class { 'hyperic_agent': }
       EOS
 
